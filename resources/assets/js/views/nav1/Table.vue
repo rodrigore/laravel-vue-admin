@@ -16,7 +16,7 @@
 		</el-col>
 
 		<!-- tabla -->
-		<el-table :data="users" highlight-current-row v-loading="listLoading" @sort-change="handleSortChange" @filter-change="handleFilterChange" style="width: 100%;">
+		<el-table :data="users" highlight-current-row v-loading="listLoading" element-loading-text="Cargando..." @sort-change="handleSortChange" @filter-change="handleFilterChange" style="width: 100%;">
 			<el-table-column prop="id" width="60" sortable=false> </el-table-column>
             <el-table-column prop="name" label="Nombre" width="220" sortable=false> </el-table-column>
 			<el-table-column prop="email" label="Email" width="250" sortable=false > </el-table-column>
@@ -71,9 +71,9 @@
 		</el-dialog>
 
 		<!-- agregar -->
-		<el-dialog title="Nuevoo usuario" v-model="addFormVisible" :close-on-click-modal="false">
-			<el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
-				<el-form-item label="Nombre" prop="name">
+		<el-dialog title="Nuevo usuario" v-model="addFormVisible" :close-on-click-modal="false">
+			<el-form :model="addForm" label-width="80px" ref="addForm">
+				<el-form-item label="Nombre" prop="name" :error="errors.name[0]">
 					<el-input v-model="addForm.name" auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item label="Sexo">
@@ -109,22 +109,23 @@
 			return {
                 sortBy: ',',
 				filters: {
-					name: ''
+					name: '',
+					sex: ''
 				},
 				users: [],
+                errors: {
+                    'name': [],
+                },
 				total: 0,
 				page: 1,
 				listLoading: false,
-				sels: [],//列表选中列
-
-				editFormVisible: false,//编辑界面是否显示
+				editFormVisible: false,
 				editLoading: false,
 				editFormRules: {
 					name: [
 						{ required: true, message: '请输入姓名', trigger: 'blur' }
 					]
 				},
-				//编辑界面数据
 				editForm: {
 					id: 0,
 					name: '',
@@ -138,14 +139,13 @@
 				addLoading: false,
 				addFormRules: {
 					name: [
-						{ required: true, message: '请输入姓名', trigger: 'blur' }
+						{ required: true, message: 'El campo nombre es requerido', trigger: 'blur' }
 					]
 				},
-				//新增界面数据
 				addForm: {
 					name: '',
-					sex: -1,
-					age: 0,
+					sex: '',
+					age: '',
 					birth: '',
 					address: ''
 				}
@@ -166,7 +166,8 @@
                 }
 			},
 			handleFilterChange(val) {
-                console.log(val);
+			    this.filters.sex = val.sex[0];
+				this.getUsers();
 			},
 			handleCurrentChange(val) {
 				this.page = val;
@@ -177,6 +178,7 @@
 				let para = {
 					page: this.page,
 					name: this.filters.name,
+					sex: this.filters.sex,
 					sortBy: this.sortBy,
 				};
 				this.listLoading = true;
@@ -212,18 +214,16 @@
 				this.editFormVisible = true;
 				this.editForm = Object.assign({}, row);
 			},
-			//显示新增界面
 			handleAdd: function () {
 				this.addFormVisible = true;
 				this.addForm = {
 					name: '',
-					sex: -1,
-					age: 0,
+					sex: '',
+					age: '',
 					birth: '',
 					address: ''
 				};
 			},
-			//编辑
 			editSubmit: function () {
 				this.$refs.editForm.validate((valid) => {
 					if (valid) {
@@ -247,7 +247,6 @@
 					}
 				});
 			},
-			//新增
 			addSubmit: function () {
 				this.$refs.addForm.validate((valid) => {
 					if (valid) {
@@ -257,7 +256,6 @@
 							para.birth = (!para.birth || para.birth == '') ? '' : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd');
 							addUser(para).then((res) => {
 								this.addLoading = false;
-								//NProgress.done();
 								this.$message({
 									message: 'Usuario creado con exito!',
 									type: 'success'
@@ -265,7 +263,10 @@
 								this.$refs['addForm'].resetFields();
 								this.addFormVisible = false;
 								this.getUsers();
-							});
+                            }).catch((error) => {
+                                this.errors = error.response.data;
+								this.addLoading = false;
+                            });
 						});
 					}
 				});
