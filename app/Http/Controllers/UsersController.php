@@ -14,7 +14,8 @@ class UsersController extends Controller
                 $query->where('name', 'ilike', "%$name%");
             })
             ->when(request()->sex != '', function ($query) {
-                $query->whereSex(request()->sex);
+                $values =  explode(',', request()->sex);
+                $query->whereIn('sex', $values);
             })
             ->when(request()->sortBy, function ($query) {
                 list($column, $order)  = explode(',', request()->sortBy);

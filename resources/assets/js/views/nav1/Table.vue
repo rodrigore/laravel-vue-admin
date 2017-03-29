@@ -166,7 +166,7 @@
                 }
 			},
 			handleFilterChange(val) {
-			    this.filters.sex = val.sex[0];
+			    this.filters.sex = val.sex.join();
 				this.getUsers();
 			},
 			handleCurrentChange(val) {
