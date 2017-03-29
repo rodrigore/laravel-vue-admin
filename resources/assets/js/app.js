@@ -24,10 +24,11 @@ window.axios.defaults.headers.common = {
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-default/index.css'
 import lang from 'element-ui/lib/locale/lang/es'
 import locale from 'element-ui/lib/locale'
-import 'font-awesome/css/font-awesome.min.css'
+import 'element-ui/lib/theme-default/index.css'
+// import './assets/theme/theme-darkblue/index.css'
+import './assets/icon.css'
 
 // configure language
 locale.use(lang)

@@ -10,6 +10,7 @@
                 'csrfToken' => csrf_token()
             ]); ?>
         </script>
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     </head>
     <body>
         <div id="app"></div>

@@ -74,8 +74,21 @@
 		<el-dialog title="Nuevo usuario" v-model="addFormVisible" :close-on-click-modal="false">
 			<el-form :model="addForm" label-width="80px" ref="addForm">
 				<el-form-item label="Nombre" prop="name" :error="errors.get('name')">
-					<el-input v-model="addForm.name" auto-complete="off" @change="errors.clear('name')"></el-input>
+					<el-input v-model="addForm.name" @change="errors.clear('name')" icon="fa fa-vcard"></el-input>
 				</el-form-item>
+				<el-form-item label="Email" prop="email" :error="errors.get('email')">
+					<el-input v-model="addForm.email"  @change="errors.clear('email')" icon="message"></el-input>
+				</el-form-item>
+                <el-form-item label="Password" prop="password" :error="errors.get('password')">
+                    <el-row>
+                        <el-col :span="11">
+                            <el-input v-model="addForm.password"  @change="errors.clear('password')" type="password" icon="fa fa-key" placeholder="Ingrese password"></el-input>
+                        </el-col>
+                        <el-col :span="11" :offset="2">
+                            <el-input v-model="addForm.password_confirmation" type="password" icon="fa fa-key" placeholder="Confirmar password"></el-input>
+                        </el-col>
+                    </el-row>
+                </el-form-item>
 				<el-form-item label="Sexo" :error="errors.get('sex')">
 					<el-radio-group v-model="addForm.sex" name="sex" @change="errors.clear('sex')">
 						<el-radio class="radio" :label="1">Hombre</el-radio>
@@ -89,7 +102,7 @@
 					<el-date-picker type="date" name="birth" placeholder="Seleccione" v-model="addForm.birth" @change="errors.clear('birth')"></el-date-picker>
 				</el-form-item>
 				<el-form-item label="Dirección" :error="errors.get('address')">
-					<el-input type="textarea" v-model="addForm.address" @change="errors.clear('address')"></el-input>
+					<el-input type="textarea" v-model="addForm.address" @change="errors.clear('address')" icon="fa fa-marker"></el-input>
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
@@ -144,6 +157,9 @@
 				},
 				addForm: {
 					name: '',
+					email: '',
+                    password: '',
+                    password_confirmation: '',
 					sex: '',
 					age: '',
 					birth: '',
