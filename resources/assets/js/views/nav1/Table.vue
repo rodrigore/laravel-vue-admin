@@ -73,23 +73,23 @@
 		<!-- agregar -->
 		<el-dialog title="Nuevo usuario" v-model="addFormVisible" :close-on-click-modal="false">
 			<el-form :model="addForm" label-width="80px" ref="addForm">
-				<el-form-item label="Nombre" prop="name" :error="errors.name[0]">
-					<el-input v-model="addForm.name" auto-complete="off"></el-input>
+				<el-form-item label="Nombre" prop="name" :error="errors.get('name')">
+					<el-input v-model="addForm.name" auto-complete="off" @change="errors.clear('name')"></el-input>
 				</el-form-item>
-				<el-form-item label="Sexo">
-					<el-radio-group v-model="addForm.sex">
+				<el-form-item label="Sexo" :error="errors.get('sex')">
+					<el-radio-group v-model="addForm.sex" name="sex" @change="errors.clear('sex')">
 						<el-radio class="radio" :label="1">Hombre</el-radio>
 						<el-radio class="radio" :label="0">Mujer</el-radio>
 					</el-radio-group>
 				</el-form-item>
-				<el-form-item label="Edad">
-					<el-input-number v-model="addForm.age" :min="0" :max="200"></el-input-number>
+				<el-form-item label="Edad" :error="errors.get('age')">
+					<el-input-number v-model="addForm.age" @change="errors.clear('age')"></el-input-number>
 				</el-form-item>
-				<el-form-item label="Fecha nacimiento">
-					<el-date-picker type="date" placeholder="Seleccione" v-model="addForm.birth"></el-date-picker>
+				<el-form-item label="Fecha nacimiento" :error="errors.get('birth')">
+					<el-date-picker type="date" name="birth" placeholder="Seleccione" v-model="addForm.birth" @change="errors.clear('birth')"></el-date-picker>
 				</el-form-item>
-				<el-form-item label="Dirección">
-					<el-input type="textarea" v-model="addForm.address"></el-input>
+				<el-form-item label="Dirección" :error="errors.get('address')">
+					<el-input type="textarea" v-model="addForm.address" @change="errors.clear('address')"></el-input>
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
@@ -102,6 +102,8 @@
 
 <script>
 	import util from '../../common/js/util'
+	import Errors from '../../common/js/Errors';
+
 	import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from '../../api/api';
 
 	export default {
@@ -113,9 +115,7 @@
 					sex: ''
 				},
 				users: [],
-                errors: {
-                    'name': [],
-                },
+                errors: new Errors(),
 				total: 0,
 				page: 1,
 				listLoading: false,
@@ -129,8 +129,8 @@
 				editForm: {
 					id: 0,
 					name: '',
-					sex: -1,
-					age: 0,
+					sex: '',
+					age: '',
 					birth: '',
 					address: ''
 				},
@@ -250,23 +250,19 @@
 			addSubmit: function () {
 				this.$refs.addForm.validate((valid) => {
 					if (valid) {
-						this.$confirm('Esta seguro de crear el usuario?', 'Confirmación', {}).then(() => {
-							this.addLoading = true;
-							let para = Object.assign({}, this.addForm);
-							para.birth = (!para.birth || para.birth == '') ? '' : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd');
-							addUser(para).then((res) => {
-								this.addLoading = false;
-								this.$message({
-									message: 'Usuario creado con exito!',
-									type: 'success'
-								});
-								this.$refs['addForm'].resetFields();
-								this.addFormVisible = false;
-								this.getUsers();
-                            }).catch((error) => {
-                                this.errors = error.response.data;
-								this.addLoading = false;
-                            });
+						this.addLoading = true;
+						addUser(this.addForm).then((res) => {
+							this.addLoading = false;
+							this.$message({
+								message: 'Usuario creado con exito!',
+								type: 'success'
+							});
+							this.$refs['addForm'].resetFields();
+							this.addFormVisible = false;
+							this.getUsers();
+						}).catch((error) => {
+							this.errors.record(error.response.data);
+							this.addLoading = false;
 						});
 					}
 				});
@@ -276,7 +272,6 @@
 			this.getUsers();
 		}
 	}
-
 </script>
 
 <style scoped>

@@ -31,8 +31,11 @@ class UsersController extends Controller
         $this->validate(request(), [
             'name' => 'required',
             'sex' => 'required',
+            'age' => 'required|integer|min:1',
+            'birth' => 'required',
+            'address' => 'required',
         ]);
 
-        \App\User::create(request()->params);
+        \App\User::create(request()->all());
     }
 }
