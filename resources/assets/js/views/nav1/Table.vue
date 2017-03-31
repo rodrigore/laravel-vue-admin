@@ -117,7 +117,7 @@
 	import util from '../../common/js/util'
 	import Errors from '../../common/js/Errors';
 
-	import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from '../../api/api';
+	import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from '../../endpoints';
 
 	export default {
 		data() {

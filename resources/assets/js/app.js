@@ -34,8 +34,8 @@ import './assets/icon.css'
 locale.use(lang)
 
 // app components
-import App from './App.vue'
 import routes from './routes'
+import App from './views/App.vue'
 
 // components
 Vue.use(ElementUI)
