@@ -23,6 +23,7 @@ window.axios.defaults.headers.common = {
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import VueProgressBar from 'vue-progressbar'
 import ElementUI from 'element-ui'
 import lang from 'element-ui/lib/locale/lang/es'
 import locale from 'element-ui/lib/locale'
@@ -40,12 +41,26 @@ import App from './views/App.vue'
 // components
 Vue.use(ElementUI)
 Vue.use(VueRouter)
+Vue.use(VueProgressBar, {
+	color: '#03A9F4',
+	thickness: '3px',
+});
 
 // disable message
 Vue.config.productionTip = false
 
 const router = new VueRouter({
   routes
+})
+
+// progress bar
+router.beforeEach((to, from, next) => {
+    router.app.$Progress.start()
+    next()
+})
+
+router.afterEach(() => {
+    router.app.$Progress.finish()
 })
 
 const app = new Vue({
