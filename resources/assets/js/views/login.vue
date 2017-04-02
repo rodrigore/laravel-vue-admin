@@ -1,5 +1,5 @@
 <template>
-  <el-form :model="loginForm" ref="loginForm" label-position="left" label-width="0px" class="login-container">
+  <el-form label-position="left" label-width="0px" class="login-container">
     <h3 class="title">Iniciar sesión</h3>
     <el-form-item prop="email" :error="errors.get('email')">
       <el-input type="text" v-model="loginForm.email" @change="errors.clear('email')" auto-complete="off" placeholder="Correo" icon="message"></el-input>
@@ -31,18 +31,32 @@ export default {
     };
   },
   methods: {
-    submit(ev) {
+    submit() {
       this.isSubmitting = true;
 
-      requestLogin(this.loginForm).then(() => {
-        this.isSubmitting = false;
-        //sessionStorage.setItem('user', JSON.stringify(user));
-        console.log('bacan');
-        this.$router.push({ path: '/table' });
-      }).catch((error) => {
-        this.errors.record(error.response.data);
-        this.isSubmitting = false;
+      this.$auth.login({
+        data: this.loginForm,
+        rememberMe: this.checked,
+        success() {
+          this.isSubmitting = false;
+          this.$router.push({ path: '/users' });
+        },
+        error(error) {
+      		this.errors.record(error.response.data);
+          this.isSubmitting = false;
+        }
       });
+
+      //requestLogin(this.loginForm).then(() => {
+      //  this.isSubmitting = false;
+      //  //sessionStorage.setItem('user', JSON.stringify(user));
+      //  console.log('bacan');
+      //  //this.$router.push({ path: '/table' });
+      //}).catch((error) => {
+      //  this.errors.record(error.response.data);
+      //  this.isSubmitting = false;
+      //});
+
     }
   }
 }

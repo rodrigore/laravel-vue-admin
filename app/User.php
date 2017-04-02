@@ -22,6 +22,7 @@ class User extends Authenticatable
         'age',
         'birth',
         'address',
+        'avatar',
     ];
 
     protected $casts = [

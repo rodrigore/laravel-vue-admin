@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->integer('age');
             $table->date('birth');
             $table->string('address');
+            $table->string('avatar')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

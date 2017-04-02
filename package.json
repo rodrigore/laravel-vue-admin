@@ -18,9 +18,12 @@
     "vue-router": "^2.3.0"
   },
   "dependencies": {
+    "@websanova/vue-auth": "^2.8.2-beta",
     "element-theme-default": "^1.2.7",
     "element-ui": "^1.2.5",
     "font-awesome": "^4.7.0",
-    "sass-loader": "^6.0.3"
+    "sass-loader": "^6.0.3",
+    "vue-axios": "^2.0.1",
+    "vue-progressbar": "^0.7.1"
   }
 }

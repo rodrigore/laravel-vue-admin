@@ -1,9 +1,12 @@
 <?php
 
-use Illuminate\Http\Request;
+Route::group(['middleware' => ['jwt.auth']], function () {
+    Route::get('/refresh', function () {
+    })->middleware('jwt.refresh');
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+    Route::get('/user', function () {
+        return ['data' => auth()->user()];
+    });
 });
 
 Route::get('users', 'UsersController@index');

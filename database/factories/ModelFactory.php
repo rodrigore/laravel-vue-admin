@@ -24,5 +24,6 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'age' => $faker->numberBetween(1, 100),
         'birth' => $faker->dateTimeThisCentury->format('Y-m-d'),
         'address' => $faker->address,
+        'avatar' => $faker->imageUrl(40, 40, 'cats')
     ];
 });

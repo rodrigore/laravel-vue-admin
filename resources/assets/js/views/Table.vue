@@ -114,10 +114,10 @@
 </template>
 
 <script>
-	import util from '../../common/js/util'
-	import Errors from '../../common/js/Errors';
+	import util from '../common/js/util'
+	import Errors from '../common/js/Errors';
 
-	import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from '../../endpoints';
+	import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from '../endpoints';
 
 	export default {
 		data() {
