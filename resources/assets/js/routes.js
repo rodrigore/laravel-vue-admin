@@ -8,28 +8,31 @@ let routes = [
         path: '/login',
         component: Login,
         name: '',
-        hidden: true
-    },
-    {
-        path: '/404',
-        component: NotFound,
-        name: '',
-        hidden: true
-    },
-    {
-        path: '/',
-        component: Home,
-        name: 'Administración',
-        iconCls: 'el-icon-message',
-        children: [
-            { path: '/users', component: Table, name: 'Usuarios' },
-        ]
+        hidden: true,
+        meta: {auth: false},
     },
     {
         path: '/',
         component: Home,
         name: 'Home',
         iconCls: 'fa fa-id-card-o',
+        meta: {auth: true},
+    },
+    {
+        path: '/',
+        component: Home,
+        name: 'Administración',
+        iconCls: 'el-icon-message',
+        meta: {auth: true},
+        children: [
+            { path: '/users', component: Table, name: 'Usuarios' },
+        ]
+    },
+    {
+        path: '/404',
+        component: NotFound,
+        name: '',
+        hidden: true
     },
     {
         path: '*',
