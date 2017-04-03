@@ -27,7 +27,7 @@
                     <template v-for="(item,index) in $router.options.routes" v-if="!item.hidden">
                         <el-submenu :index="index+''" v-if="!item.leaf">
                             <template slot="title"><i :class="item.iconCls"></i>{{item.name}}</template>
-                            <el-menu-item v-for="child in item.children" :index="child.path" v-if="!child.hidden">{{child.name}}</el-menu-item>
+                            <el-menu-item v-for="child in item.children" :index="child.path" v-if="!child.hidden" :key="child.id">{{child.name}}</el-menu-item>
                         </el-submenu>
                         <el-menu-item v-if="item.leaf&&item.children.length>0" :index="item.children[0].path"><i :class="item.iconCls"></i>{{item.children[0].name}}</el-menu-item>
                     </template>
@@ -54,7 +54,7 @@
                     <el-col :span="24" class="breadcrumb-container">
                         <strong class="title">{{$route.name}}</strong>
                         <el-breadcrumb separator="/" class="breadcrumb-inner">
-                            <el-breadcrumb-item v-for="item in $route.matched">
+                            <el-breadcrumb-item v-for="item in $route.matched" :key="item.id">
                                 {{ item.name }}
                             </el-breadcrumb-item>
                         </el-breadcrumb>

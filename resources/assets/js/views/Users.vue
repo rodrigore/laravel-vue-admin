@@ -269,10 +269,11 @@
 						this.addLoading = true;
 						addUser(this.addForm).then((res) => {
 							this.addLoading = false;
-							this.$message({
-								message: 'Usuario creado con exito!',
-								type: 'success'
-							});
+                            this.$notify({
+                                title: 'Éxito',
+                                message: 'Usuario creado con exito!',
+                                type: 'success'
+                            });
 							this.$refs['addForm'].resetFields();
 							this.addFormVisible = false;
 							this.getUsers();

@@ -1,7 +1,7 @@
 import Login from './views/Login.vue'
 import NotFound from './views/404.vue'
 import Home from './views/Home.vue'
-import Table from './views/Table.vue'
+import Users from './views/Users.vue'
 
 let routes = [
     {
@@ -25,7 +25,7 @@ let routes = [
         iconCls: 'el-icon-message',
         meta: {auth: true},
         children: [
-            { path: '/users', component: Table, name: 'Usuarios' },
+            { path: '/users', component: Users, name: 'Usuarios' },
         ]
     },
     {
