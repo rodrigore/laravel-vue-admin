@@ -21,11 +21,11 @@ let routes = [
     {
         path: '/',
         component: Home,
-        name: 'Administración',
+        name: 'Administration',
         iconCls: 'el-icon-message',
         meta: {auth: true},
         children: [
-            { path: '/users', component: Users, name: 'Usuarios' },
+            { path: '/users', component: Users, name: 'Users' },
         ]
     },
     {

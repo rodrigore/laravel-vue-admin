@@ -16,16 +16,3 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::get('users', function() {
-    return \App\User::
-        when(request()->sortBy, function ($query) {
-            list($column, $order)  = explode(',', request()->sortBy);
-            $query->orderBy($column, $order);
-        })
-        ->paginate();
-});
-
-Route::post('users', function() {
-    \App\User::create(request()->params);
-});

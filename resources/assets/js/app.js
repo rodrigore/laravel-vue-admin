@@ -33,10 +33,6 @@ locale.use(lang)
 Vue.use(ElementUI)
 Vue.use(VueRouter)
 Vue.use(VueAxios, window.axios)
-Vue.use(VueProgressBar, {
-	color: '#03A9F4',
-	thickness: '3px',
-});
 
 // disable message
 Vue.config.productionTip = false

@@ -13,8 +13,8 @@
                 <el-dropdown trigger="hover">
                     <span class="el-dropdown-link userinfo-inner"><img :src="this.sysUserAvatar" /> {{sysUserName}}</span>
                     <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item>Perfil</el-dropdown-item>
-                        <el-dropdown-item divided @click.native="logout">Salir</el-dropdown-item>
+                        <el-dropdown-item>Some action</el-dropdown-item>
+                        <el-dropdown-item divided @click.native="logout">Exit</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
             </el-col>
@@ -104,7 +104,7 @@
             },
             logout: function () {
                 var _this = this;
-                this.$confirm('Esta seguro que desea salir?', 'Confirmación', {
+                this.$confirm('Are you sure you want to exit?', 'Confirmation', {
                 }).then(() => {
                     this.$auth.logout({ makeRequest: false });
                     _this.$router.push('/login');
