@@ -21,13 +21,11 @@ window.axios.defaults.headers.common = {
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueAxios from 'vue-axios'
-import VueProgressBar from 'vue-progressbar'
 import VueAuth from '@websanova/vue-auth'
 import ElementUI from 'element-ui'
 import lang from 'element-ui/lib/locale/lang/es'
 import locale from 'element-ui/lib/locale'
 import 'element-ui/lib/theme-default/index.css'
-// import './assets/theme/theme-darkblue/index.css'
 import './assets/icon.css'
 locale.use(lang)
 
