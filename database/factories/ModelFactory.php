@@ -16,14 +16,14 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'password' => $password ?: $password = 'secret',
+        'name'           => $faker->name,
+        'email'          => $faker->unique()->safeEmail,
+        'password'       => $password ?: $password = 'secret',
         'remember_token' => str_random(10),
-        'sex' => (int)$faker->boolean,
-        'age' => $faker->numberBetween(1, 100),
-        'birth' => $faker->dateTimeThisCentury->format('Y-m-d'),
-        'address' => $faker->address,
-        'avatar' => $faker->imageUrl(40, 40, 'cats')
+        'sex'            => (int)$faker->boolean,
+        'age'            => $faker->numberBetween(1, 100),
+        'birth'          => $faker->dateTimeThisCentury->format('Y-m-d'),
+        'address'        => $faker->address,
+        'avatar'         => $faker->imageUrl(40, 40, 'cats')
     ];
 });

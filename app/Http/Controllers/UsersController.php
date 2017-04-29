@@ -14,7 +14,7 @@ class UsersController extends Controller
         return User::
             when(request()->name, function ($query) {
                 $name = request()->name;
-                $query->where('name', 'ilike', "%$name%");
+                $query->where('name', 'like', "%$name%");
             })
             ->when(request()->sex != '', function ($query) {
                 $values =  explode(',', request()->sex);
