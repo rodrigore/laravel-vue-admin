@@ -3,30 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Filters\UserFilter;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Symfony\Component\HttpFoundation\Response;
 
 class UsersController extends Controller
 {
-    public function index()
+    public function index(UserFilter $filter)
     {
-        return User::
-            when(request()->name, function ($query) {
-                $name = request()->name;
-                $query->where('name', 'like', "%$name%");
-            })
-            ->when(request()->sex != '', function ($query) {
-                $values =  explode(',', request()->sex);
-                $query->whereIn('sex', $values);
-            })
-            ->when(request()->sortBy, function ($query) {
-                list($column, $order)  = explode(',', request()->sortBy);
-                if ($column) {
-                    $query->orderBy($column, $order);
-                }
-            })
-            ->paginate();
+        return User::filter($filter)->paginate();
     }
 
     public function store()
