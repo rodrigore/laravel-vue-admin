@@ -103,12 +103,12 @@
             handleselect: function (a, b) {
             },
             logout: function () {
-                var _this = this;
                 this.$confirm('Are you sure you want to exit?', 'Confirmation', {
                 }).then(() => {
-                    this.$auth.logout({ makeRequest: false });
-                    _this.$router.push('/login');
-                }).catch(() => {
+                    this.$auth.logout({
+                        makeRequest: true,
+                        redirect: '/login'
+                    });
                 });
             },
             collapse:function(){

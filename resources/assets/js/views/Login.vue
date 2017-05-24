@@ -1,5 +1,5 @@
 <template>
-  <el-form label-position="left" label-width="0px" class="login-container">
+  <el-form label-position="left" label-width="0px" class="login-container" @keyup.native.enter="submit">
     <h3 class="title">Login</h3>
     <el-form-item prop="email" :error="errors.get('email')">
       <el-input type="text" v-model="loginForm.email" @change="errors.clear('email')" auto-complete="off" placeholder="Email" icon="message"></el-input>

@@ -50,4 +50,9 @@ class LoginController extends Controller
             ->json(compact('token'))
             ->header('Authorization', $token);
     }
+
+    public function logout()
+    {
+        JWTAuth::invalidate(JWTAuth::getToken());
+    }
 }

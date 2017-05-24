@@ -50,8 +50,9 @@ Vue.use(VueAuth, {
       router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js'),
       rolesVar: 'type',
 			loginData: {url: 'login'},
+			logoutData: {url: 'logout'},
       fetchData: {url: 'frontend/user'},
-      refreshData: {url: 'frontend/refresh'},
+      refreshData: {enabled: false},
 });
 
 // init
